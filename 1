@@ -1,0 +1,99 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+
+using namespace std;
+
+class book {
+public:
+    // constructor
+    book(string author, double price, string title, int book_num, int num_copies)
+        : author_(author), price_(price), title_(title), book_num_(book_num), num_copies_(num_copies) {}
+
+    // getters
+    string get_author() const { return author_; }
+    double get_price() const { return price_; }
+    string get_title() const { return title_; }
+    int get_book_num() const { return book_num_; }
+    int get_num_copies() const { return num_copies_; }
+
+    // setters
+    void set_author(string author) { author_ = author; }
+    void set_price(double price) { price_ = price; }
+    void set_title(string title) { title_ = title; }
+    void set_book_num(int book_num) { book_num_ = book_num; }
+    void set_num_copies(int num_copies) { num_copies_ = num_copies; }
+
+    // insert a new book record into the database
+    void insert_book() {
+        cout << "Enter author name: ";
+        getline(cin, author_);
+        cout << "Enter book price: ";
+        cin >> price_;
+        cin.ignore(); // to consume the newline character left in the input buffer
+        cout << "Enter book title: ";
+        getline(cin, title_);
+        cout << "Enter book number: ";
+        cin >> book_num_;
+        cout << "Enter number of copies: ";
+        cin >> num_copies_;
+    }
+
+    // display a list of all books in the database
+    static void display_books(const vector<book>& books) {
+        cout << "Book list:" << endl;
+        for (const auto& b : books) {
+            cout << b.get_book_num() << ". " << b.get_title() << " by " << b.get_author() << ", Kes" << b.get_price() << ", " << b.get_num_copies() << " copies" << endl;
+        }
+    }
+
+private:
+    string author_;
+    double price_;
+    string title_;
+    int book_num_;
+    int num_copies_;
+};
+
+int main() {
+    vector<book> books;
+    int choice = 0;
+    string is_chief_librarian = "";
+    
+     cout << "Are you Chief Librarian? (y or n): ";
+    getline(cin, is_chief_librarian);
+    bool is_chief = (is_chief_librarian == "y");
+    
+        
+    while (choice != 3) {
+        cout << "Select an option:" << endl;
+        cout << "1. Insert a new book record into the database" << endl;
+        cout << "2. Display a list of all books in the database" << endl;
+        cout << "3. Exit" << endl;
+        cin >> choice;
+        cin.ignore(); // to consume the newline character left in the input buffer
+        
+        switch (choice) {
+            case 1:
+                  // Check if the user is the Chief Librarian before inserting a new book record
+                if (is_chief) {
+                books.emplace_back("", 0.0, "", 0, 0); // add a new empty book object to the vector
+                books.back().insert_book(); // insert the book record into the last book object in the vector
+                 } else {
+                    cout << "You are not permission to add new book records." << endl;
+                }
+                break;
+            case 2:
+                book::display_books(books);
+                break;
+            case 3:
+                cout << "Exiting..." << endl;
+                break;
+            default:
+                cout << "Invalid choice. Try again." << endl;
+                break;
+        }
+    }
+    return 0;
+}
