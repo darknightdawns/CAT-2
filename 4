@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Subscriber {
+private:
+    string name;
+    string phone_number;
+    double airtime;
+
+public:
+    // Constructor to capture subscriber details
+    Subscriber(string name, string phone_number, double airtime) {
+        this->name = name;
+        this->phone_number = phone_number;
+        this->airtime = airtime;
+    }
+
+    // Function to compute bonus points based on airtime amount
+    int compute_bonuspoints() {
+        if (airtime >= 2000.00) {
+            return 500;
+        } else if (airtime >= 1000.00 && airtime <= 1999.00) {
+            return 300;
+        } else if (airtime >= 500.00 && airtime <= 999.00) {
+            return 100;
+        } else if (airtime >= 100.00 && airtime <= 499.00) {
+            return 50;
+        } else {
+            return 0;
+        } }
+    // Function to display subscriber details and bonus points awarded
+    void display_info() {
+        int bonus_points = compute_bonuspoints();
+        cout << name << " :(PHONE NO:" << phone_number << "): AWARDED " << bonus_points << " BONGA POINTS. STAY WITH SAFARICOM. THE BETTER OPTION!\n";
+    }};
+int main() {
+    // Get subscriber details from user input
+    string name, phone_number;
+    double airtime;
+
+    cout << "Enter subscriber name: ";
+    getline(cin, name);
+    cout << "Enter phone number: ";
+    getline(cin, phone_number);
+    cout << "Enter airtime amount: ";
+    cin >> airtime;
+
+    // Create subscriber object using constructor
+    Subscriber subscriber(name, phone_number, airtime);
+
+    // Display subscriber details and bonus points awarded
+    subscriber.display_info();
+    return 0;
+}
