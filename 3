@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Vehicle {
+    private:
+        string make;
+        string model;
+        string engine;
+        double sale_price;
+    public:
+        void set_vehicle(string make, string model, string engine, double sale_price) {
+            this->make = make;
+            this->model = model;
+            this->engine = engine;
+            this->sale_price = sale_price;
+        }
+        double get_profit() {
+            return 0.15 * sale_price;
+        }
+        void print_details() {
+            cout << "Vehicle make: " << make << endl;
+            cout << "Vehicle model: " << model << endl;
+            cout << "Engine number: " << engine << endl;
+            cout << "Sale price: " << sale_price << endl;
+            cout << "Profit: " << get_profit() << endl;
+        }
+};
+
+int main() {
+    Vehicle car;
+    car.set_vehicle("MERCEDES", "C200", "MC2020", 300000);
+    car.print_details();
+    return 0;
+}
